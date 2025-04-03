@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+def allureVersion = "2.25.0"
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //JUnit5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
+
+    //RestAssured
+    implementation 'io.rest-assured:rest-assured:5.5.1'
+
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    //asserJ
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+
+    //jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+
+    // Import allure-bom to ensure correct versions of all the dependencies are used
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
+    // Add necessary Allure dependencies to dependencies section
+    testImplementation "io.qameta.allure:allure-junit5"
+}
+
+test {
+    useJUnitPlatform()
+}

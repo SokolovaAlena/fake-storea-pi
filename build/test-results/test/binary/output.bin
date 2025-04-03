@@ -1,0 +1,39 @@
+HTTP/1.1 200 OK
+%Date: Thu, 03 Apr 2025 13:33:37 GMT
+/Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+ access-control-allow-origin: *
++etag: W/"120-HNMhv14aQeBJetA9fBvavCZ+gdk"
+x-powered-by: Express
+cf-cache-status: DYNAMIC
+€Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=gi45jAvlX49JWRyvt60XrlFGtEcT1eO5ZjcWFqHg9JDHacG8VjqQUjK40hIL0wV3xyuVe1N9h4wTgxkLz66u2Lvt1MxSYdNXO9ZF8%2FkXyVPuzh7Zal%2BWzp9dhBqBLC4iT%2Fas"}],"group":"cf-nel","max_age":604800}
+CNEL: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+Server: cloudflare
+CF-RAY: 92a8f051be43e4a7-OTP
+Content-Encoding: gzip
+alt-svc: h3=":443"; ma=86400
+Øserver-timing: cfL4;desc="?proto=TCP&rtt=42050&min_rtt=41983&rtt_var=15878&sent=6&recv=6&lost=0&retrans=0&sent_bytes=3127&recv_bytes=780&delivery_rate=103007&cwnd=252&unsent_bytes=0&cid=af42ebc295f02737&ts=287&x=0"
+
+{
+    "address": {
+        "geolocation": {
+            "lat": "-37.3159",
+            "long": "81.1496"
+        },
+        "city": "kilcoole",
+        "street": "new road",
+        "number": 7682,
+         "zipcode": "12926-3874"
+    },
+    "id": 1,
+    "email": "john@gmail.com",
+    "username": "johnd",
+    "password": "m38rmF$",
+    "name": {
+        "firstname": "john",
+        "lastname": "doe"
+    },
+    "phone": "1-570-236-7033",
+    "__v": 0
+}

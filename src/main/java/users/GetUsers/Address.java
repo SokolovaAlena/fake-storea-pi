@@ -1,0 +1,41 @@
+package users.GetUsers;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Address{
+
+	@JsonProperty("zipcode")
+	private String zipcode;
+
+	@JsonProperty("number")
+	private int number;
+
+	@JsonProperty("city")
+	private String city;
+
+	@JsonProperty("street")
+	private String street;
+
+	@JsonProperty("geolocation")
+	private Geolocation geolocation;
+
+	public String getZipcode(){
+		return zipcode;
+	}
+
+	public int getNumber(){
+		return number;
+	}
+
+	public String getCity(){
+		return city;
+	}
+
+	public String getStreet(){
+		return street;
+	}
+
+	public Geolocation getGeolocation(){
+		return geolocation;
+	}
+}

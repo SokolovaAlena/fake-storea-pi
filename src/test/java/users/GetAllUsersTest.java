@@ -1,2 +1,28 @@
-package users;public class GetAllUsersTest {
+package users;
+
+import config.BaseTest;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import users.GetUsers.ResponseGetUsersItem;
+
+public class GetAllUsersTest extends BaseTest {
+    @BeforeAll
+    public static void setUp() {
+        RestAssured.baseURI = BASE_URI;
+    }
+
+    @Test
+    public void getAllUsersTest() {
+        Response response = RestAssured.given()
+                .get(USER_URL)
+                .andReturn();
+        ResponseBody responseBody = response.getBody();
+        ResponseGetUsersItem[] users = responseBody.as(ResponseGetUsersItem[].class);
+
+        Assertions.assertEquals(10, users.length);
+    }
 }

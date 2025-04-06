@@ -3,39 +3,50 @@ package users;
 import config.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.junit.jupiter.api.*;
+import users.newUser.NewUser;
+import users.newUser.NewUserGenerator;
+import users.newUser.ResponseToAddNewUser;
 
-public class AddNewUserTest {
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class AddNewUserTest extends BaseTest{
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = BaseTest.BASE_URI;
+        RestAssured.baseURI = BASE_URI;
     }
 
 
     @DisplayName("Добавить нового пользователя со всеми параметрами")
     @Tag("Positive")
     @Test
-    public void addNewUserWhithAllFieldsTest (){
-        NewUserClient newUserClient = new NewUserClient();
+    public void addNewUserWithAllFieldsTest (){
         NewUser newUser = NewUserGenerator.generateNewUser();
 
-        Response response =  newUserClient.create(newUser);
-
-        Assertions.assertEquals(200,response.getStatusCode(),"wrong status code");
-
+        given().body(newUser)
+                .post(USER_URL)
+                .then().log().all()
+                .statusCode(200)
+                .body("id",notNullValue())
+                .body("id", anyOf(equalTo(1), equalTo(11)));
     }
+
 
     @DisplayName("Добавить нового пользователя без имени")
     @Tag("Positive")
     @Test
     public void addNewUserWithoutUserNameTest (){
-        NewUserClient newUserClient = new NewUserClient();
         NewUser newUser = NewUserGenerator.generateNewUserWithoutUserName();
 
-        Response response =  newUserClient.create(newUser);
-
-        Assertions.assertEquals(200,response.getStatusCode(),"wrong status code");
+        given().body(newUser)
+                .post(USER_URL)
+                .then().log().all()
+                .statusCode(200)
+                .body("id",notNullValue())
+                .body("id", anyOf(equalTo(1), equalTo(11)));
 
     }
 
@@ -44,13 +55,14 @@ public class AddNewUserTest {
     @Tag("Positive")
     @Test
     public void addNewUserWithoutEmailTest(){
-        NewUserClient newUserClient = new NewUserClient();
         NewUser newUser = NewUserGenerator.generateNewUserWithoutEmail();
 
-        Response response =  newUserClient.create(newUser);
-
-        Assertions.assertEquals(200,response.getStatusCode(),"wrong status code");
-//        Assertions.assertNotNull(response.getBody("id"),"Id is null");
+        given().body(newUser)
+                .post(USER_URL)
+                .then().log().all()
+                .statusCode(200)
+                .body("id",notNullValue())
+                .body("id", anyOf(equalTo(1), equalTo(11)));
 
     }
 
@@ -58,12 +70,15 @@ public class AddNewUserTest {
     @Tag("Positive")
     @Test
     public void addNewUserWithoutPasswordTest(){
-        NewUserClient newUserClient = new NewUserClient();
         NewUser newUser = NewUserGenerator.generateNewUserWithoutPassword();
+        Response response = given().body(newUser)
+                .when()
+                .post(USER_URL)
+                .andReturn();
+        ResponseBody responseBody = response.getBody();
+        ResponseToAddNewUser myresp = responseBody.as(ResponseToAddNewUser.class);
 
-        Response response =  newUserClient.create(newUser);
-
-        Assertions.assertEquals(200,response.getStatusCode(),"wrong status code");
-
+        Assertions.assertEquals(1, myresp.getId());
+        Assertions.assertEquals(200, response.getStatusCode());
     }
 }

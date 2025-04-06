@@ -18,3 +18,10 @@
 1. Создать класс для тестов этого метода
 
 
+//    @BeforeAll
+//    public static void logRequestAndResponse (){
+////        включить логирование запросов и ответов
+//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+//    }
+
+

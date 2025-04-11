@@ -17,7 +17,7 @@ public class GetUsersTest extends BaseTest {
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = BaseTest.BASE_URI;
+        RestAssured.baseURI = getHost();
     }
 
 
@@ -29,7 +29,7 @@ public class GetUsersTest extends BaseTest {
 
         given().
                 pathParam("id", id)
-                .get(USER_URL+ "/{id}")
+                .get(getUsersEndpoint()+ "/{id}")
                 .then()
 //                .log().all()
                 .statusCode(200)
@@ -45,7 +45,7 @@ public class GetUsersTest extends BaseTest {
 
         Response response = RestAssured.given().
                 pathParam("id", 1)
-                .get(USER_URL+ "/{id}")
+                .get(getUsersEndpoint()+ "/{id}")
                 .andReturn();
         ResponseBody responseBody = response.getBody();
         ResponseGetUsers myresp = responseBody.as(ResponseGetUsers.class);

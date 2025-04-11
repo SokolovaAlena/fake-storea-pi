@@ -12,13 +12,13 @@ import users.GetUsers.ResponseGetUsersItem;
 public class GetAllUsersTest extends BaseTest {
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = BASE_URI;
+        RestAssured.baseURI = getHost();
     }
 
     @Test
     public void getAllUsersTest() {
         Response response = RestAssured.given()
-                .get(USER_URL)
+                .get(getUsersEndpoint())
                 .andReturn();
         ResponseBody responseBody = response.getBody();
         ResponseGetUsersItem[] users = responseBody.as(ResponseGetUsersItem[].class);

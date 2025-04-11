@@ -16,7 +16,7 @@ public class AddNewUserTest extends BaseTest{
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = BASE_URI;
+        RestAssured.baseURI = getHost();
     }
 
 
@@ -27,7 +27,7 @@ public class AddNewUserTest extends BaseTest{
         NewUser newUser = NewUserGenerator.generateNewUser();
 
         given().body(newUser)
-                .post(USER_URL)
+                .post(getUsersEndpoint())
                 .then().log().all()
                 .statusCode(200)
                 .body("id",notNullValue())
@@ -42,7 +42,7 @@ public class AddNewUserTest extends BaseTest{
         NewUser newUser = NewUserGenerator.generateNewUserWithoutUserName();
 
         given().body(newUser)
-                .post(USER_URL)
+                .post(getUsersEndpoint())
                 .then().log().all()
                 .statusCode(200)
                 .body("id",notNullValue())
@@ -58,7 +58,7 @@ public class AddNewUserTest extends BaseTest{
         NewUser newUser = NewUserGenerator.generateNewUserWithoutEmail();
 
         given().body(newUser)
-                .post(USER_URL)
+                .post(getUsersEndpoint())
                 .then().log().all()
                 .statusCode(200)
                 .body("id",notNullValue())
@@ -73,7 +73,7 @@ public class AddNewUserTest extends BaseTest{
         NewUser newUser = NewUserGenerator.generateNewUserWithoutPassword();
         Response response = given().body(newUser)
                 .when()
-                .post(USER_URL)
+                .post(getUsersEndpoint())
                 .andReturn();
         ResponseBody responseBody = response.getBody();
         ResponseToAddNewUser myresp = responseBody.as(ResponseToAddNewUser.class);

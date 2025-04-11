@@ -15,11 +15,11 @@ import static io.restassured.RestAssured.given;
 public class UpdateUserTest extends BaseTest {
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = BASE_URI;
+        RestAssured.baseURI = getHost();
     }
 
     @Test
-    public void UpdateUserTest() {
+    public void updateUserTest() {
         ResponseUpdateUser expectedUser = UpdateUserGenerator.createUpdUserObj();
 
         Response response =
@@ -28,7 +28,7 @@ public class UpdateUserTest extends BaseTest {
                         .header("Content-Type", "application/json")
                         .body(UpdateUserGenerator.createUpdUserObj())
                         .when()
-                        .put(USER_URL + "/{id}")
+                        .put(getUsersEndpoint() + "/{id}")
                         .andReturn();
 
         ResponseBody responseBody = response.getBody();

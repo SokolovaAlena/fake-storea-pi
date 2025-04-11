@@ -1,6 +1,7 @@
 package products;
 
 import config.BaseTest;
+import groovyjarjarantlr4.runtime.BaseRecognizer;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -14,15 +15,16 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
-import static config.BaseTest.BASE_URI;
+
 
 public class GetProductsTest extends BaseTest{
 
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = BASE_URI;
+        RestAssured.baseURI = getHost();
     }
+
 
 
     //вариант 1
@@ -30,7 +32,7 @@ public class GetProductsTest extends BaseTest{
     public void shouldGetProducts() {
 
         Response response = RestAssured.given()
-                .get(PRODUCTS_URL);
+                .get(getProductsEndpoint());
 
         Assertions.assertEquals(200, response.getStatusCode(),"Неверный статус код");
     }
@@ -40,7 +42,7 @@ public class GetProductsTest extends BaseTest{
     public void shouldGetProducts2() {
        Response response =  RestAssured.given()
                 .when()
-                .get("/products")
+                .get(getProductsEndpoint())
                .andReturn();
         ResponseBody responseBody = response.getBody();
         ResponseGetProductsItem [] actualResult = responseBody.as(ResponseGetProductsItem[].class);
